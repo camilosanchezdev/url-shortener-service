@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Controller, useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
+import useLogin from '@/features/auth/hooks/login';
 
 type Inputs = {
   email: string;
@@ -13,11 +14,12 @@ type Inputs = {
 };
 
 export default function LoginForm() {
+  const { isLoading, login } = useLogin();
   const { control, register, handleSubmit } = useForm<Inputs>();
   const handleOnSubmit = async (val: Inputs) => {
     const { email, password } = val;
     console.log(email, password);
-    //     login(email, password);
+    login(email, password);
   };
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)} style={{ width: '50%' }}>
