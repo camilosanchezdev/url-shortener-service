@@ -1,93 +1,68 @@
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Image from 'next/image';
-import styles from './page.module.css';
-
+import LoginForm from '@/features/auth/components/login-form';
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Container maxWidth={false} sx={{ padding: '0 !important', minHeight: '100vh' }}>
+      <Grid container>
+        <Grid item xs={8}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#e3e3e3',
+              minHeight: '100vh',
+              padding: '0 140px',
+            }}
           >
-            By{' '}
+            <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+              Build stronger digital connections
+            </Typography>
+            <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+              Use our URL shortener, QR Codes, and landing pages to engage your audience and connect
+              them to the right information. Build, edit, and track everything inside the Bitly
+              Connections Platform.
+            </Typography>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+              src="https://pub-c5e31b5cdafb419fb247a8ac2e78df7a.r2.dev/public/assets/illustrations/illustration-dashboard.webp"
+              alt="logo"
+              width={432}
+              height={324}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
-        </a>
-      </div>
-    </main>
+            {/*<Link href="/about" color="secondary" component={NextLink}>*/}
+            {/*  Go to the about page*/}
+            {/*</Link>*/}
+            {/*<ProTip />*/}
+            {/*<Copyright />*/}
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#ededed',
+              minHeight: '100vh',
+            }}
+          >
+            <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
+              Sign in to your account
+            </Typography>
+            <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Don't have an account? Get started
+            </Typography>
+            <LoginForm />
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
