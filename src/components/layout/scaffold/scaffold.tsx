@@ -7,6 +7,7 @@ import UserMenu from '@/components/layout/user-menu/user-menu';
 import Sidebar from '@/components/layout/sidebar/sidebar';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { SxProps, Theme } from '@mui/system';
+import Stack from '@mui/material/Stack';
 
 const styles = {
   appBar: {
@@ -21,8 +22,18 @@ const boxStyles: SxProps<Theme> = {
   borderRadius: '10px',
   marginTop: '72px',
   minHeight: 'calc(100vh - 72px)',
+  maxHeight: 'calc(100vh - 72px)',
+  overflowY: 'scroll',
   gridColumn: 'span 12 / span 12',
 };
+const contentStyles: SxProps<Theme> = {
+  backgroundColor: '#e8e8e8',
+  borderRadius: '10px',
+  marginTop: '72px',
+  paddingBottom: '80px',
+  gridColumn: 'span 12 / span 12',
+};
+
 type Props = {
   children: ReactNode;
 };
@@ -66,7 +77,7 @@ export default function Scaffold({ children }: Props) {
           marginLeft: contentMarginLeft,
         }}
       >
-        {children}
+        <Stack sx={contentStyles}>{children}</Stack>
       </Box>
     </>
   );
