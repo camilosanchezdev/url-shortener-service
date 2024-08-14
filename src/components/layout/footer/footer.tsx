@@ -10,7 +10,6 @@ const boxStyles: SxProps<Theme> = {
   gridColumn: 'span 12 / span 12',
   position: 'absolute',
   bottom: 0,
-  zIndex: 1500,
   color: '#444444',
   display: 'flex',
   justifyContent: 'center',

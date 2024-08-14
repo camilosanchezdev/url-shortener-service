@@ -1,3 +1,5 @@
+'use client';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
@@ -8,13 +10,24 @@ import CardActions from '@mui/material/CardActions';
 import { FaRegCopy } from 'react-icons/fa';
 import { GoPencil } from 'react-icons/go';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const styles = {
   card: { minWidth: 275 },
   cardContent: { display: 'flex', justifyContent: 'space-between' },
   button: { display: 'flex', gap: 1, height: '40px' },
 };
+
 export default function BasicCard() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const handleEditItem = (val: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('show', 'true');
+    params.set('item', val.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
   return (
     <Card sx={styles.card}>
       <CardContent sx={styles.cardContent}>
@@ -38,7 +51,7 @@ export default function BasicCard() {
           <Button variant="text" sx={styles.button}>
             <FaRegCopy /> Copy link
           </Button>
-          <Button variant="text" sx={styles.button}>
+          <Button variant="text" sx={styles.button} onClick={() => handleEditItem(1)}>
             <GoPencil /> Edit
           </Button>
           <Button variant="text" sx={styles.button}>
