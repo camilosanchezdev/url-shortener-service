@@ -23,7 +23,7 @@ export default function LinksPage({ searchParams }: SearchParamProps) {
   const remove = searchParams?.remove?.toLowerCase() === 'true';
   const visibleToast = searchParams?.toast?.toLowerCase() === 'true';
   const itemSelected = safeParseNumber(searchParams?.item);
-
+  const formTitle = itemSelected ? 'Edit link' : 'Create link';
   return (
     <PageContainer title="Links">
       <Box
@@ -39,7 +39,7 @@ export default function LinksPage({ searchParams }: SearchParamProps) {
           <BasicCard key={el} />
         ))}
       </Stack>
-      <CustomDialog title={itemSelected ? 'Edit link' : 'Create link'} visible={visible}>
+      <CustomDialog title={visible ? formTitle : ' '} visible={visible}>
         <LinkForm />
       </CustomDialog>
       <CustomDialog visible={remove}>
