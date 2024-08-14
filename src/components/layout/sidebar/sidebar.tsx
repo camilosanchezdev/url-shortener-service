@@ -34,6 +34,7 @@ export default function Sidebar({ open, setOpen, greaterThan900 }: Props) {
         sx={{
           margin: 0,
           width: open ? '260px' : '72px',
+          overflow: 'hidden',
         }}
       >
         <Box component="aside">
