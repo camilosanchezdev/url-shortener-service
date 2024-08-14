@@ -10,7 +10,7 @@ import CardActions from '@mui/material/CardActions';
 import { FaRegCopy } from 'react-icons/fa';
 import { GoPencil } from 'react-icons/go';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useQueryParams, { IParams } from '@/hooks/params';
 
 const styles = {
   card: { minWidth: 275 },
@@ -19,14 +19,43 @@ const styles = {
 };
 
 export default function BasicCard() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
+  const { setParams } = useQueryParams();
+  const handleCopyLink = (str: string) => {
+    navigator.clipboard.writeText(str).then(() => {
+      const params: IParams[] = [
+        {
+          key: 'toast',
+          value: 'true',
+        },
+      ];
+      setParams(params);
+    });
+  };
   const handleEditItem = (val: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('show', 'true');
-    params.set('item', val.toString());
-    router.push(`${pathname}?${params.toString()}`);
+    const params: IParams[] = [
+      {
+        key: 'show',
+        value: 'true',
+      },
+      {
+        key: 'item',
+        value: val.toString(),
+      },
+    ];
+    setParams(params);
+  };
+  const handleRemoveItem = (val: number) => {
+    const params: IParams[] = [
+      {
+        key: 'remove',
+        value: 'true',
+      },
+      {
+        key: 'item',
+        value: val.toString(),
+      },
+    ];
+    setParams(params);
   };
   return (
     <Card sx={styles.card}>
@@ -48,13 +77,13 @@ export default function BasicCard() {
           <Typography variant="body2">https://google.com</Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button variant="text" sx={styles.button}>
+          <Button variant="text" sx={styles.button} onClick={() => handleCopyLink('some link')}>
             <FaRegCopy /> Copy link
           </Button>
           <Button variant="text" sx={styles.button} onClick={() => handleEditItem(1)}>
             <GoPencil /> Edit
           </Button>
-          <Button variant="text" sx={styles.button}>
+          <Button variant="text" sx={styles.button} onClick={() => handleRemoveItem(1)}>
             <MdOutlineDeleteOutline /> Delete
           </Button>
         </Box>

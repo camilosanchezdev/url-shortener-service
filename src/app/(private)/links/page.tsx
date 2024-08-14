@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import CustomDialog from '@/components/ui/custom-dialog/custom-dialog';
 import LinkForm from '@/features/links/components/form';
 import safeParseNumber from '@/utils/safe-parse-number';
+import RemoveLink from '@/features/links/components/remove-link';
+import Toast from '@/components/ui/toast/toast';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
@@ -18,6 +20,8 @@ type SearchParamProps = {
 };
 export default function LinksPage({ searchParams }: SearchParamProps) {
   const visible = searchParams?.show?.toLowerCase() === 'true';
+  const remove = searchParams?.remove?.toLowerCase() === 'true';
+  const visibleToast = searchParams?.toast?.toLowerCase() === 'true';
   const itemSelected = safeParseNumber(searchParams?.item);
 
   return (
@@ -38,6 +42,10 @@ export default function LinksPage({ searchParams }: SearchParamProps) {
       <CustomDialog title={itemSelected ? 'Edit link' : 'Create link'} visible={visible}>
         <LinkForm />
       </CustomDialog>
+      <CustomDialog visible={remove}>
+        <RemoveLink />
+      </CustomDialog>
+      <Toast visible={visibleToast} />
     </PageContainer>
   );
 }
