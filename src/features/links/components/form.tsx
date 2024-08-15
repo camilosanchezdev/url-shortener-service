@@ -30,7 +30,7 @@ type Inputs = {
 
 export const formSchema: ZodType<Inputs> = z.object({
   title: z.string().optional(),
-  originalUrl: z.string().trim().min(1, { message: 'Required' }),
+  originalUrl: z.string().trim().url({ message: 'Invalid URL' }).min(1, { message: 'Required' }),
 });
 type Props = {
   itemSelected: number;
@@ -68,7 +68,7 @@ export default function LinkForm({ itemSelected }: Props) {
             render={({ field }) => (
               <TextField
                 id="outlined-basic"
-                label="Title"
+                label="Title (optional)"
                 variant="outlined"
                 autoComplete="off"
                 InputLabelProps={{ shrink: !!field.value }}

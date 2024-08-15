@@ -86,7 +86,7 @@ export default function BasicCard({
             {formatDate(createdAt, 'MM-DD-YYYY HH:mm')}
           </Typography>
           <Typography variant="h5" component="div">
-            {title}
+            {title || shortUrl}
           </Typography>
           <Typography
             sx={{ mb: 1.5, cursor: 'pointer', ':hover': { textDecoration: 'underline' } }}
