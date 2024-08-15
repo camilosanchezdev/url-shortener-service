@@ -12,6 +12,10 @@ import { GoPencil } from 'react-icons/go';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import useQueryParams, { IParams } from '@/hooks/params';
 import { UrlType } from '@/features/links/types/url.type';
+import formatDate from '@/utils/format-date.util';
+import { ToastPayload } from '@/types/toast-payload.type';
+import { ToastTypeEnum } from '@/enums/toast-type.enum';
+import encodeObjectToBase64 from '@/utils/encode-base-64.util';
 
 const styles = {
   card: { minWidth: 275 },
@@ -29,11 +33,17 @@ export default function BasicCard({
 }: UrlType) {
   const { setParams } = useQueryParams();
   const handleCopyLink = (str: string) => {
+    const toastMessage: ToastPayload = {
+      show: true,
+      type: ToastTypeEnum.SUCCESS,
+      message: 'Link copied',
+    };
+    const toastMessageEncoded = encodeObjectToBase64<ToastPayload>(toastMessage);
     navigator.clipboard.writeText(str).then(() => {
       const params: IParams[] = [
         {
           key: 'toast',
-          value: 'true',
+          value: toastMessageEncoded,
         },
       ];
       setParams(params);
@@ -70,7 +80,7 @@ export default function BasicCard({
       <CardContent sx={styles.cardContent}>
         <Box>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {createdAt}
+            {formatDate(createdAt, 'MM-DD-YYYY HH:mm')}
           </Typography>
           <Typography variant="h5" component="div">
             {title}

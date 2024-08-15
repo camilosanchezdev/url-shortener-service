@@ -5,11 +5,16 @@ import IconButton from '@mui/material/IconButton';
 import { FaTimes } from 'react-icons/fa';
 import { SnackbarContent } from '@mui/material';
 import useQueryParams from '@/hooks/params';
+import { ToastTypeEnum } from '@/enums/toast-type.enum';
+import { ToastPayload } from '@/types/toast-payload.type';
 
-type Props = {
-  visible: boolean;
-};
-export default function Toast({ visible }: Props) {
+function getToastBackground(type: ToastTypeEnum) {
+  switch (type) {
+    case ToastTypeEnum.SUCCESS:
+      return '#3c8a3c';
+  }
+}
+export default function Toast({ show, message, type }: ToastPayload) {
   const { removeParams } = useQueryParams();
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
@@ -26,17 +31,16 @@ export default function Toast({ visible }: Props) {
   );
   return (
     <Snackbar
-      open={visible}
+      open={show}
       autoHideDuration={2000}
       onClose={handleClose}
-      message="Link copied"
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
       <SnackbarContent
         style={{
-          backgroundColor: '#3c8a3c',
+          backgroundColor: getToastBackground(type),
         }}
-        message={<span id="client-snackbar">Link copied</span>}
+        message={<span id="client-snackbar">{message}</span>}
         action={action}
       />
     </Snackbar>

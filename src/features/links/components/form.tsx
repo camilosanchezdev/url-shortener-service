@@ -8,11 +8,15 @@ import FormGroup from '@mui/material/FormGroup';
 import Box from '@mui/material/Box';
 import { IoSaveOutline } from 'react-icons/io5';
 import Typography from '@mui/material/Typography';
-import CustomDialog from '@/components/ui/custom-dialog/custom-dialog';
 import { useState } from 'react';
 import { z, ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircularProgress } from '@mui/material';
+import { createOrUpdateUrl } from '@/features/links/api/actions';
+import { ToastPayload } from '@/types/toast-payload.type';
+import { ToastTypeEnum } from '@/enums/toast-type.enum';
+import encodeObjectToBase64 from '@/utils/encode-base-64.util';
+import useQueryParams, { IParams } from '@/hooks/params';
 
 const styles = {
   formGroup: { display: 'flex', flexDirection: 'column', gap: 1 },
@@ -31,6 +35,7 @@ export const formSchema: ZodType<Inputs> = z.object({
   originalUrl: z.string().trim().min(1, { message: 'Required' }),
 });
 export default function LinkForm() {
+  const { setParams, removeParams } = useQueryParams();
   const [itemSelected, setItemSelected] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -43,7 +48,24 @@ export default function LinkForm() {
     resolver: zodResolver(formSchema),
   });
   const handleOnSubmit = async (data: Inputs) => {
-    console.log('=>(form.tsx:31) data', data);
+    const response = await createOrUpdateUrl(data);
+    if (response.success) {
+      const toastMessage: ToastPayload = {
+        show: true,
+        type: ToastTypeEnum.SUCCESS,
+        message: 'Link created successfully',
+      };
+      const toastMessageEncoded = encodeObjectToBase64<ToastPayload>(toastMessage);
+      const params: IParams[] = [
+        {
+          key: 'toast',
+          value: toastMessageEncoded,
+        },
+      ];
+      setParams(params);
+      removeParams(['show']);
+    }
+    console.log('=>(form.tsx:49) response', response);
   };
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
