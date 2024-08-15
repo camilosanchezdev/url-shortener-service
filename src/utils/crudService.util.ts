@@ -62,3 +62,24 @@ export async function createOrUpdate<T>(
     return { success: false };
   }
 }
+export async function remove<T>(
+  endpoint: string,
+  id: number,
+  revalidatePathName?: string,
+): Promise<GenericResponse> {
+  const url = `${baseUrl}/${endpoint}/${id}`;
+  const method = 'DELETE';
+  const options: FetchOptions = {
+    method,
+    headers: { 'Content-Type': 'application/json' }, // , Authorization: `Bearer ${token}`
+  };
+  try {
+    await fetchData<T>(url, options);
+    if (revalidatePathName) {
+      revalidatePath(revalidatePathName);
+    }
+    return { success: true };
+  } catch (e) {
+    return { success: false };
+  }
+}

@@ -58,7 +58,7 @@ export default async function LinksPage({ searchParams }: SearchParamProps) {
         <LinkForm itemSelected={itemSelected} />
       </CustomDialog>
       <CustomDialog visible={remove}>
-        <RemoveLink />
+        <RemoveLink itemSelected={itemSelected} />
       </CustomDialog>
       {toastPayload && <Toast {...toastPayload} />}
     </PageContainer>

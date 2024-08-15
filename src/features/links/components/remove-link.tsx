@@ -6,11 +6,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useQueryParams from '@/hooks/params';
+import useRemoveUrl from '@/features/links/hooks/useRemoveUrl';
 
-export default function RemoveLink() {
+type Props = {
+  itemSelected: number;
+};
+export default function RemoveLink({ itemSelected }: Props) {
+  const { mutate } = useRemoveUrl();
   const { removeParams } = useQueryParams();
   const handleConfirm = () => {
-    // TODO: connect remove item
+    mutate({ itemId: itemSelected });
   };
 
   const handleClose = () => {
