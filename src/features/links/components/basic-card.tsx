@@ -16,6 +16,8 @@ import formatDate from '@/utils/format-date.util';
 import { ToastPayload } from '@/types/toast-payload.type';
 import { ToastTypeEnum } from '@/enums/toast-type.enum';
 import encodeObjectToBase64 from '@/utils/encode-base-64.util';
+import { baseConfig } from '@/config/base.config';
+import { useMemo } from 'react';
 
 const styles = {
   card: { minWidth: 275 },
@@ -32,6 +34,7 @@ export default function BasicCard({
   clicks,
 }: UrlType) {
   const { setParams } = useQueryParams();
+  const shortUrl = useMemo(() => `${baseConfig.BASE_URL}/q/${shortCode}`, [shortCode]);
   const handleCopyLink = (str: string) => {
     const toastMessage: ToastPayload = {
       show: true,
@@ -89,17 +92,13 @@ export default function BasicCard({
             sx={{ mb: 1.5, cursor: 'pointer', ':hover': { textDecoration: 'underline' } }}
             color="#0e60c8"
           >
-            bit.ly/{shortCode}
+            {shortUrl}
           </Typography>
 
           <Typography variant="body2">{originalUrl}</Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button
-            variant="text"
-            sx={styles.button}
-            onClick={() => handleCopyLink(`https://bit.ly/${shortCode}`)}
-          >
+          <Button variant="text" sx={styles.button} onClick={() => handleCopyLink(shortUrl)}>
             <FaRegCopy /> Copy link
           </Button>
           <Button variant="text" sx={styles.button} onClick={() => handleEditItem(id)}>

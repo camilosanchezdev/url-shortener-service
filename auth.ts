@@ -12,8 +12,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        const response = await fetch(`${baseConfig.BASE_URL}/auth/login`, {
+      async authorize(credentials) {
+        const response = await fetch(`${baseConfig.BASE_API_URL}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

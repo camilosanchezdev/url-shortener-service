@@ -4,7 +4,7 @@ import { GenericResponse } from '@/types/generic-response.type';
 import { baseConfig } from '@/config/base.config';
 import { getServerToken } from '@/actions/session.action';
 
-const baseUrl = baseConfig.BASE_URL;
+const baseUrl = baseConfig.BASE_API_URL;
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
