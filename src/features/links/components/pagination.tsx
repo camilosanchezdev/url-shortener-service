@@ -8,6 +8,7 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
+    width: '100%',
   },
   button: {
     width: '40%',
