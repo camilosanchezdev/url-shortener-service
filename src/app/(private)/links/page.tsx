@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 import CustomDialog from '@/components/ui/custom-dialog/custom-dialog';
 import LinkForm from '@/features/links/components/form';
-import safeParseNumber from '@/utils/safe-parse-number';
+import safeParseNumberUtil from '@/utils/safe-parse-number.util';
 import RemoveLink from '@/features/links/components/remove-link';
 import CreateLink from '@/features/links/components/create-link';
 import Toast from '@/components/ui/toast/toast';
@@ -12,6 +12,7 @@ import Cards from '@/features/links/components/cards';
 import decodeBase64ToObject from '@/utils/decode-base-64.util';
 import { ToastPayload } from '@/types/toast-payload.type';
 import PageContainer from '@/components/layout/page-container/page-container';
+import { DEFAULT_LIMIT, DEFAULT_PAGE } from '@/constants/pagination.const';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
@@ -29,11 +30,11 @@ export default async function LinksPage({ searchParams }: SearchParamProps) {
   const toastPayload: ToastPayload | null = toast
     ? decodeBase64ToObject<ToastPayload>(toast)
     : null;
-  const itemSelected = safeParseNumber(searchParams?.item);
+  const itemSelected = safeParseNumberUtil(searchParams?.item);
   const formTitle = itemSelected ? 'Edit link' : 'Create link';
   const queryClient = new QueryClient();
-  const page = searchParams?.page && !isNaN(+searchParams?.page) ? +searchParams?.page : 1;
-  const limit = searchParams?.limit && !isNaN(+searchParams?.limit) ? +searchParams?.limit : 5;
+  const page = safeParseNumberUtil(searchParams?.p, DEFAULT_PAGE);
+  const limit = safeParseNumberUtil(searchParams?.l, DEFAULT_LIMIT);
 
   await queryClient.prefetchQuery({
     queryKey: ['urls', page, limit],

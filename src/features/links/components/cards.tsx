@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 
 import BasicCard from '@/features/links/components/basic-card';
 import useGetUrls from '@/features/links/hooks/useGetUrls';
+import Pagination from '@/features/links/components/pagination';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
@@ -18,8 +19,15 @@ type Props = {
 export default function Cards({ page, limit }: Props) {
   const { data: urls } = useGetUrls(page, limit);
   return (
-    <Stack sx={{ ...styles.widthResponsive, ...styles.content }}>
-      {urls?.data.map((el) => <BasicCard key={el.id} {...el} />)}
-    </Stack>
+    <>
+      {urls && (
+        <Stack sx={{ ...styles.widthResponsive, ...styles.content }}>
+          {urls.data.map((el) => (
+            <BasicCard key={el.id} {...el} />
+          ))}
+          <Pagination count={urls.count} />
+        </Stack>
+      )}
+    </>
   );
 }
