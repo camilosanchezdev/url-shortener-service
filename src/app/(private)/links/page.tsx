@@ -1,16 +1,17 @@
-import PageContainer from '@/components/layout/page-container/page-container';
-import CreateLink from '@/features/links/components/create-link';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
+
 import CustomDialog from '@/components/ui/custom-dialog/custom-dialog';
 import LinkForm from '@/features/links/components/form';
 import safeParseNumber from '@/utils/safe-parse-number';
 import RemoveLink from '@/features/links/components/remove-link';
+import CreateLink from '@/features/links/components/create-link';
 import Toast from '@/components/ui/toast/toast';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { getUrls } from '@/features/links/api/actions';
 import Cards from '@/features/links/components/cards';
 import decodeBase64ToObject from '@/utils/decode-base-64.util';
 import { ToastPayload } from '@/types/toast-payload.type';
+import PageContainer from '@/components/layout/page-container/page-container';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
@@ -28,7 +29,6 @@ export default async function LinksPage({ searchParams }: SearchParamProps) {
   const toastPayload: ToastPayload | null = toast
     ? decodeBase64ToObject<ToastPayload>(toast)
     : null;
-  console.log('toastPayload', toastPayload);
   const itemSelected = safeParseNumber(searchParams?.item);
   const formTitle = itemSelected ? 'Edit link' : 'Create link';
   const queryClient = new QueryClient();
@@ -55,7 +55,7 @@ export default async function LinksPage({ searchParams }: SearchParamProps) {
       </HydrationBoundary>
 
       <CustomDialog title={visible ? formTitle : ' '} visible={visible}>
-        <LinkForm />
+        <LinkForm itemSelected={itemSelected} />
       </CustomDialog>
       <CustomDialog visible={remove}>
         <RemoveLink />

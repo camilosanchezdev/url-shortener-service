@@ -3,7 +3,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
+
 import LoginForm from '@/features/auth/components/login-form';
+
 export default function Home() {
   return (
     <Container maxWidth={false} sx={{ padding: '0 !important', minHeight: '100vh' }}>

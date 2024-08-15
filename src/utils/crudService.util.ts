@@ -59,7 +59,6 @@ export async function createOrUpdate<T>(
     }
     return { success: true };
   } catch (e) {
-    console.log('e', e);
     return { success: false };
   }
 }
