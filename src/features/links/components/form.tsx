@@ -1,12 +1,8 @@
 'use client';
 
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { CircularProgress } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { IoSaveOutline } from 'react-icons/io5';
 import { useEffect } from 'react';
@@ -15,12 +11,12 @@ import { z, ZodType } from 'zod';
 
 import useGetUrl from '@/features/links/hooks/useGetUrl';
 import useCreateUpdateUrl from '@/features/links/hooks/useCreateUpdateUrl';
+import FormError from '@/components/ui/form-error/form-error';
+import FormButton from '@/components/ui/form-button/form-button';
 
 const styles = {
   formGroup: { display: 'flex', flexDirection: 'column', gap: 1 },
   formControl: { margin: '10px 0' },
-  button: { width: '100%', height: '40px' },
-  error: { margin: '8px 0 0 0', color: '#fd3131' },
 };
 
 type Inputs = {
@@ -93,35 +89,13 @@ export default function LinkForm({ itemSelected }: Props) {
               />
             )}
           />
-          {errors.originalUrl && (
-            <Typography variant="body2" component="span" noWrap sx={styles.error}>
-              {errors.originalUrl.message}
-            </Typography>
-          )}
+          {errors.originalUrl && <FormError message={errors.originalUrl.message} />}
         </FormControl>
-        <Box>
-          {isLoadingMutation || isLoadingDetail ? (
-            <Button
-              variant="contained"
-              className="w-full"
-              type="submit"
-              sx={styles.button}
-              disabled
-            >
-              <CircularProgress size="1.5rem" />
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              startIcon={<IoSaveOutline />}
-              className="w-full"
-              type="submit"
-              sx={styles.button}
-            >
-              Save
-            </Button>
-          )}
-        </Box>
+        <FormButton
+          label="Save"
+          loading={isLoadingMutation || isLoadingDetail}
+          startIcon={<IoSaveOutline />}
+        />
       </FormGroup>
     </form>
   );

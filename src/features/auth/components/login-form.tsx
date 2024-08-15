@@ -3,10 +3,10 @@
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import { Controller, useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
 import useLogin from '@/features/auth/hooks/login';
+import FormButton from '@/components/ui/form-button/form-button';
 
 type Inputs = {
   email: string;
@@ -61,16 +61,7 @@ export default function LoginForm() {
           />
         </FormControl>
       </FormGroup>
-      <div>
-        <Button
-          variant="contained"
-          startIcon={<FaSignInAlt />}
-          type="submit"
-          sx={{ width: '100%' }}
-        >
-          Sign in
-        </Button>
-      </div>
+      <FormButton label="Sign in" loading={isLoading} startIcon={<FaSignInAlt />} />
     </form>
   );
 }
