@@ -14,6 +14,11 @@ interface FetchOptions {
   headers?: { [key: string]: string };
 }
 
+export async function fetchCustom<T>(endpoint: string): Promise<T> {
+  const url = `${baseUrl}/${endpoint}`;
+  return fetchData<T>(url, { method: 'GET' });
+}
+
 async function fetchData<T>(url: string, options: FetchOptions): Promise<T> {
   const token = await getServerToken();
   const response = await fetch(url, {

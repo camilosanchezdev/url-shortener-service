@@ -1,6 +1,6 @@
 'use server';
 
-import { getList, createOrUpdate, getById, remove } from '@/utils/crudService.util';
+import { getList, createOrUpdate, getById, remove, fetchCustom } from '@/utils/crudService.util';
 import { ListPageResponseType } from '@/types/list-page-response.type';
 import { UrlType } from '@/features/links/types/url.type';
 import { EndpointsEnum } from '@/enums/endpoints.enum';
@@ -26,4 +26,7 @@ export async function createOrUpdateUrl(
 }
 export async function removeUrl(itemId: number): Promise<{ success: boolean; errors?: any[] }> {
   return remove<{ title?: string; originalUrl: string }>('urls/customer', itemId, '/links');
+}
+export async function getUrlByShortCode(shortCode: string): Promise<{ url: string }> {
+  return fetchCustom<{ url: string }>(`urls/short/${shortCode}`);
 }
