@@ -17,7 +17,7 @@ const styles = {
       width: '100%',
     },
   },
-  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%', lg: '50%' } },
+  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%' } },
   actions: { display: 'flex', justifyContent: 'flex-end', margin: '10px 0' },
 };
 

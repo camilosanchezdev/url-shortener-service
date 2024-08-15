@@ -16,7 +16,7 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE } from '@/constants/pagination.const';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
-  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%', lg: '50%' } },
+  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%' } },
   actions: { display: 'flex', justifyContent: 'flex-end', margin: '10px 0' },
 };
 

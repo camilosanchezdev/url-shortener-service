@@ -14,7 +14,7 @@ const styles = {
     width: '100%',
   },
   title: { margin: '16px 0', fontWeight: 'bold', color: '#444' },
-  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%', lg: '50%' } },
+  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%' } },
 };
 
 type Props = {

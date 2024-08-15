@@ -70,6 +70,7 @@ export default function LinkForm({ itemSelected }: Props) {
                 id="outlined-basic"
                 label="Title"
                 variant="outlined"
+                autoComplete="off"
                 InputLabelProps={{ shrink: !!field.value }}
                 {...register('title')}
               />
@@ -86,6 +87,7 @@ export default function LinkForm({ itemSelected }: Props) {
                 id="outlined-basic"
                 label="URL"
                 variant="outlined"
+                autoComplete="off"
                 InputLabelProps={{ shrink: !!field.value }}
                 {...register('originalUrl')}
               />

@@ -2,12 +2,7 @@
 
 import Button from '@mui/material/Button';
 import { IoCreateOutline } from 'react-icons/io5';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useQueryParams, { IParams } from '@/hooks/params';
-
-const styles = {
-  widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%', lg: '50%' } },
-};
 
 export default function CreateLink() {
   const { setParams } = useQueryParams();
