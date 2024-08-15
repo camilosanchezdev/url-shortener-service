@@ -18,7 +18,6 @@ export default function LoginForm() {
   const { control, register, handleSubmit } = useForm<Inputs>();
   const handleOnSubmit = async (val: Inputs) => {
     const { email, password } = val;
-    console.log(email, password);
     login(email, password);
   };
   return (

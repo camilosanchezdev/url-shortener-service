@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme';
 import { ReactNode } from 'react';
 import { NextAuthProvider } from '@/providers/session.provider';
+import ReactQueryProvider from '@/providers/react-query.provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <NextAuthProvider>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            <ReactQueryProvider>
+              <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            </ReactQueryProvider>
           </NextAuthProvider>
         </AppRouterCacheProvider>
       </body>

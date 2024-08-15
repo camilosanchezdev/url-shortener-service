@@ -11,6 +11,7 @@ import { FaRegCopy } from 'react-icons/fa';
 import { GoPencil } from 'react-icons/go';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import useQueryParams, { IParams } from '@/hooks/params';
+import { UrlType } from '@/features/links/types/url.type';
 
 const styles = {
   card: { minWidth: 275 },
@@ -18,7 +19,14 @@ const styles = {
   button: { display: 'flex', gap: 1, height: '40px' },
 };
 
-export default function BasicCard() {
+export default function BasicCard({
+  id,
+  title,
+  originalUrl,
+  shortCode,
+  createdAt,
+  clicks,
+}: UrlType) {
   const { setParams } = useQueryParams();
   const handleCopyLink = (str: string) => {
     navigator.clipboard.writeText(str).then(() => {
@@ -62,34 +70,38 @@ export default function BasicCard() {
       <CardContent sx={styles.cardContent}>
         <Box>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            15/04/2024
+            {createdAt}
           </Typography>
           <Typography variant="h5" component="div">
-            Some title
+            {title}
           </Typography>
           <Typography
             sx={{ mb: 1.5, cursor: 'pointer', ':hover': { textDecoration: 'underline' } }}
             color="#0e60c8"
           >
-            bit.ly/abc123
+            bit.ly/{shortCode}
           </Typography>
 
-          <Typography variant="body2">https://google.com</Typography>
+          <Typography variant="body2">{originalUrl}</Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button variant="text" sx={styles.button} onClick={() => handleCopyLink('some link')}>
+          <Button
+            variant="text"
+            sx={styles.button}
+            onClick={() => handleCopyLink(`https://bit.ly/${shortCode}`)}
+          >
             <FaRegCopy /> Copy link
           </Button>
-          <Button variant="text" sx={styles.button} onClick={() => handleEditItem(1)}>
+          <Button variant="text" sx={styles.button} onClick={() => handleEditItem(id)}>
             <GoPencil /> Edit
           </Button>
-          <Button variant="text" sx={styles.button} onClick={() => handleRemoveItem(1)}>
+          <Button variant="text" sx={styles.button} onClick={() => handleRemoveItem(id)}>
             <MdOutlineDeleteOutline /> Delete
           </Button>
         </Box>
       </CardContent>
       <CardActions>
-        <Chip label="0 clicks" variant="outlined" />
+        <Chip label={`${clicks} clicks`} variant="outlined" />
       </CardActions>
     </Card>
   );
