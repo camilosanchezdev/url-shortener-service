@@ -13,12 +13,8 @@ import { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
 
-import { ToastPayload } from '@/types/toast-payload.type';
-import { ToastTypeEnum } from '@/enums/toast-type.enum';
-import encodeObjectToBase64 from '@/utils/encode-base-64.util';
-import useQueryParams, { IParams } from '@/hooks/params';
-import useUrls from '@/features/links/hooks/urls';
-import { createOrUpdateUrl } from '@/features/links/api/actions';
+import useGetUrl from '@/features/links/hooks/useGetUrl';
+import useCreateUpdateUrl from '@/features/links/hooks/useCreateUpdateUrl';
 
 const styles = {
   formGroup: { display: 'flex', flexDirection: 'column', gap: 1 },
@@ -40,9 +36,8 @@ type Props = {
   itemSelected: number;
 };
 export default function LinkForm({ itemSelected }: Props) {
-  const { setParams, removeParams } = useQueryParams();
-  const { getUrlById } = useUrls();
-  const { data: url, isLoading } = getUrlById(itemSelected);
+  const { data: url, isLoading: isLoadingDetail } = useGetUrl(itemSelected);
+  const { mutate, isPending: isLoadingMutation } = useCreateUpdateUrl();
   const {
     control,
     register,
@@ -58,25 +53,9 @@ export default function LinkForm({ itemSelected }: Props) {
       const { title, originalUrl } = url;
       reset({ title, originalUrl });
     }
-  }, [url]);
-  const handleOnSubmit = async (data: Inputs) => {
-    const response = await createOrUpdateUrl(data, itemSelected);
-    if (response.success) {
-      const toastMessage: ToastPayload = {
-        show: true,
-        type: ToastTypeEnum.SUCCESS,
-        message: 'Link created successfully',
-      };
-      const toastMessageEncoded = encodeObjectToBase64<ToastPayload>(toastMessage);
-      const params: IParams[] = [
-        {
-          key: 'toast',
-          value: toastMessageEncoded,
-        },
-      ];
-      setParams(params);
-      removeParams(['show']);
-    }
+  }, [url, reset]);
+  const handleOnSubmit = async ({ title, originalUrl }: Inputs) => {
+    mutate({ title, originalUrl, itemId: itemSelected });
   };
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
@@ -119,7 +98,7 @@ export default function LinkForm({ itemSelected }: Props) {
           )}
         </FormControl>
         <Box>
-          {isLoading ? (
+          {isLoadingMutation || isLoadingDetail ? (
             <Button
               variant="contained"
               className="w-full"

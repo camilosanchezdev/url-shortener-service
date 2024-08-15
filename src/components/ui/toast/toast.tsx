@@ -12,6 +12,10 @@ function getToastBackground(type: ToastTypeEnum) {
   switch (type) {
     case ToastTypeEnum.SUCCESS:
       return '#3c8a3c';
+    case ToastTypeEnum.ERROR:
+      return '#a52424';
+    case ToastTypeEnum.WARNING:
+      return '#e3b031';
   }
 }
 export default function Toast({ show, message, type }: ToastPayload) {
