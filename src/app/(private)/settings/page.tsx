@@ -1,9 +1,10 @@
 import PageContainer from '@/components/layout/page-container/page-container';
-import { Box, Typography, TextField, Button, Grid, Paper } from '@mui/material';
+import { Box, Typography, Button, Grid, Paper } from '@mui/material';
 import ChangePasswordForm from '@/features/settings/components/change-password-form';
 import { ToastPayload } from '@/types/toast-payload.type';
 import decodeBase64ToObject from '@/utils/decode-base-64.util';
 import Toast from '@/components/ui/toast/toast';
+import UpdateProfileForm from '@/features/settings/components/update-profile-form';
 
 const styles = {
   widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%' } },
@@ -38,13 +39,7 @@ export default function SettingsPage({ searchParams }: SearchParamProps) {
               <Typography variant="h6" gutterBottom>
                 Update Profile
               </Typography>
-              <form>
-                <TextField label="Name" name="name" fullWidth margin="normal" />
-                <TextField label="Email" name="email" type="email" fullWidth margin="normal" />
-                <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-                  Update Profile
-                </Button>
-              </form>
+              <UpdateProfileForm />
             </Paper>
           </Grid>
 
