@@ -24,7 +24,7 @@ type Inputs = {
   originalUrl: string;
 };
 
-export const formSchema: ZodType<Inputs> = z.object({
+const formSchema: ZodType<Inputs> = z.object({
   title: z.string().optional(),
   originalUrl: z.string().trim().url({ message: 'Invalid URL' }).min(1, { message: 'Required' }),
 });

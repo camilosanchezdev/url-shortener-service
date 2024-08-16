@@ -10,6 +10,9 @@ import { getUrls } from '@/features/links/api/actions';
 import Cards from '@/features/links/components/cards';
 import PageContainer from '@/components/layout/page-container/page-container';
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from '@/constants/pagination.const';
+import Toast from '@/components/ui/toast/toast';
+import { ToastPayload } from '@/types/toast-payload.type';
+import decodeBase64ToObject from '@/utils/decode-base-64.util';
 
 const styles = {
   content: { display: 'flex', gap: 2 },
@@ -23,7 +26,10 @@ type SearchParamProps = {
 export default async function LinksPage({ searchParams }: SearchParamProps) {
   const visible = searchParams?.show?.toLowerCase() === 'true';
   const remove = searchParams?.remove?.toLowerCase() === 'true';
-
+  const toast = searchParams?.toast;
+  const toastPayload: ToastPayload | null = toast
+    ? decodeBase64ToObject<ToastPayload>(toast)
+    : null;
   const itemSelected = safeParseNumberUtil(searchParams?.item);
   const formTitle = itemSelected ? 'Edit link' : 'Create link';
   const queryClient = new QueryClient();
@@ -55,6 +61,7 @@ export default async function LinksPage({ searchParams }: SearchParamProps) {
       <CustomDialog visible={remove}>
         <RemoveLink itemSelected={itemSelected} />
       </CustomDialog>
+      {toastPayload && <Toast {...toastPayload} />}
     </PageContainer>
   );
 }

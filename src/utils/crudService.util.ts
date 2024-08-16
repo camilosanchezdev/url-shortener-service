@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { GenericResponse } from '@/types/generic-response.type';
 import { baseConfig } from '@/config/base.config';
 import { getServerToken } from '@/actions/session.action';
+import { HttpMethodsEnum } from '@/enums/http-methods.enum';
 
 const baseUrl = baseConfig.BASE_API_URL;
 
@@ -46,11 +47,11 @@ export async function getById<T>(endpoint: string, id: number): Promise<T | null
 export async function createOrUpdate<T>(
   endpoint: string,
   data: any,
+  method: HttpMethodsEnum,
   id?: number,
   revalidatePathName?: string,
 ): Promise<GenericResponse> {
   const url = id ? `${baseUrl}/${endpoint}/${id}` : `${baseUrl}/${endpoint}`;
-  const method = id ? 'PUT' : 'POST';
   const body = JSON.stringify(data);
   const options: FetchOptions = {
     method,

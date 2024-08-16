@@ -1,15 +1,16 @@
 'use server';
 
 import { createOrUpdate } from '@/utils/crudService.util';
-import { RegisterRequest } from '@/features/auth/hooks/useRegister';
+
+import { ChangePasswordRequest } from '@/features/settings/hooks/useChangePassword';
 import { HttpMethodsEnum } from '@/enums/http-methods.enum';
 
-export async function register(
-  data: RegisterRequest,
+export async function changePassword(
+  payload: ChangePasswordRequest,
 ): Promise<{ success: boolean; errors?: any[] }> {
   return createOrUpdate<{ title?: string; originalUrl: string }>(
-    'auth/register',
-    data,
-    HttpMethodsEnum.POST,
+    'users/change-password',
+    payload,
+    HttpMethodsEnum.PUT,
   );
 }

@@ -1,10 +1,11 @@
 'use server';
 
-import { getList, createOrUpdate, getById, remove, fetchCustom } from '@/utils/crudService.util';
+import { createOrUpdate, fetchCustom, getById, getList, remove } from '@/utils/crudService.util';
 import { ListPageResponseType } from '@/types/list-page-response.type';
 import { UrlType } from '@/features/links/types/url.type';
 import { EndpointsEnum } from '@/enums/endpoints.enum';
 import { UrlRequest } from '@/features/links/hooks/useCreateUpdateUrl';
+import { HttpMethodsEnum } from '@/enums/http-methods.enum';
 
 export async function getUrls(page: number, limit: number) {
   return getList<ListPageResponseType<UrlType>>(`${EndpointsEnum.URLS}/customer`, page, limit);
@@ -20,6 +21,7 @@ export async function createOrUpdateUrl(
   return createOrUpdate<{ title?: string; originalUrl: string }>(
     'urls/customer',
     payload,
+    itemId ? HttpMethodsEnum.PUT : HttpMethodsEnum.POST,
     itemId,
     '/links',
   );
