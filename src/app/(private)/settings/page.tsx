@@ -1,10 +1,13 @@
 import PageContainer from '@/components/layout/page-container/page-container';
-import { Box, Typography, Button, Grid, Paper } from '@mui/material';
+import { Box, Typography, Grid, Paper } from '@mui/material';
 import ChangePasswordForm from '@/features/settings/components/change-password-form';
 import { ToastPayload } from '@/types/toast-payload.type';
 import decodeBase64ToObject from '@/utils/decode-base-64.util';
 import Toast from '@/components/ui/toast/toast';
 import UpdateProfileForm from '@/features/settings/components/update-profile-form';
+import RemoveAccountForm from '@/features/settings/components/remove-account-form';
+import CustomDialog from '@/components/ui/custom-dialog/custom-dialog';
+import RemoveAccountDialog from '@/features/settings/components/remove-account-dialog';
 
 const styles = {
   widthResponsive: { width: { xs: '90%', sm: '75%', md: '70%' } },
@@ -15,6 +18,7 @@ type SearchParamProps = {
 };
 
 export default function SettingsPage({ searchParams }: SearchParamProps) {
+  const remove = searchParams?.remove?.toLowerCase() === 'true';
   const toast = searchParams?.toast;
   const toastPayload: ToastPayload | null = toast
     ? decodeBase64ToObject<ToastPayload>(toast)
@@ -49,18 +53,15 @@ export default function SettingsPage({ searchParams }: SearchParamProps) {
               <Typography variant="h6" gutterBottom color="error">
                 Delete Account
               </Typography>
-              <Typography variant="body1" paragraph>
-                This action cannot be undone. Once you delete your account, all your data will be
-                permanently removed.
-              </Typography>
-              <Button variant="contained" color="error" fullWidth>
-                Delete Account
-              </Button>
+              <RemoveAccountForm />
             </Paper>
           </Grid>
         </Grid>
       </Box>
       {toastPayload && <Toast {...toastPayload} />}
+      <CustomDialog visible={remove}>
+        <RemoveAccountDialog />
+      </CustomDialog>
     </PageContainer>
   );
 }

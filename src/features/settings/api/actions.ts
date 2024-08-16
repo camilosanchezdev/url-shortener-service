@@ -29,3 +29,7 @@ export async function updateInformation(
 export async function getInformation(): Promise<{ name: string; email: string }> {
   return fetchCustom('users/information');
 }
+
+export async function removeAccount(): Promise<GenericResponse> {
+  return createOrUpdate('users/remove-account', undefined, HttpMethodsEnum.DELETE);
+}

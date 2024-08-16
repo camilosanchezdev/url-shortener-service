@@ -19,7 +19,7 @@ type Inputs = {
 const formSchema: ZodType<Inputs> = z.object({
   name: z.string().trim().min(1, { message: 'Required' }),
   email: z.string().trim().min(1, { message: 'Required' }).email({ message: 'Invalid EMail' }),
-  password: z.string().trim().min(1, { message: 'Required' }),
+  password: z.string().trim().min(8, { message: 'Password must be at least 8 characters' }),
 });
 
 export default function RegisterForm() {

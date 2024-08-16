@@ -45,6 +45,7 @@ const styles = {
 };
 
 export default function Home({ searchParams }: SearchParamProps) {
+  const isError = searchParams?.error === 'CredentialsSignin';
   const toast = searchParams?.toast;
   const toastPayload: ToastPayload | null = toast
     ? decodeBase64ToObject<ToastPayload>(toast)
@@ -94,7 +95,7 @@ export default function Home({ searchParams }: SearchParamProps) {
                 </Typography>
               </>
             )}
-            {register ? <RegisterForm /> : <LoginForm />}
+            {register ? <RegisterForm /> : <LoginForm isError={isError} />}
           </Box>
         </Grid>
       </Grid>

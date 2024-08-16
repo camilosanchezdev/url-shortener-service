@@ -1,3 +1,5 @@
+'use client';
+
 import { ToastPayload } from '@/types/toast-payload.type';
 import { ToastTypeEnum } from '@/enums/toast-type.enum';
 import encodeObjectToBase64 from '@/utils/encode-base-64.util';
