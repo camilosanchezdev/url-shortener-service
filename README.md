@@ -59,6 +59,9 @@ src/
 ├── types/                # TypeScript types
 └── utils/                # Utility functions
 ```
+## Backend
+
+[Backend Repository](https://github.com/camilosanchezdev/url-shortener-service-api)
 
 ## Setup
 
