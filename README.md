@@ -70,7 +70,7 @@ To set up the project locally:
 1. Clone the repository:
    ```bash
    git clone https://github.com/camilosanchezdev/url-shortener-service.git
-   cd url-shortener-frontend
+   cd url-shortener-service
    ```
 
 2. Install the dependencies:
